@@ -4,7 +4,10 @@
 
 ### Problème d'installation RMySQL
 -> [La Solution](http://stackoverflow.com/questions/24537257/installing-rmysql-in-mavericks)
-
+-> Démarrer le serveur, dans le terminal Mac OS X : 
+```
+mysql.server start
+```
 
 ### Connection à un serveur MySQL
 Connexion à un serveur:
