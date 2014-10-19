@@ -88,3 +88,62 @@ Pour les lire:
 ```
 readA = h5read("example.h5","foo/A")
 ```
+
+### Connection web
+Scrapper avec readLines:
+```
+con = url("http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en")
+htmlcode = readLines(con)
+close(con)
+htmlCode
+```
+Parsing avec XML:
+```
+library(XML)
+url<-"http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en"
+html <- htmlTreeParse(url,useInternalNodes=T)
+
+xpathSApply(html,"//title",xmlValue)
+```
+GET avec le package httr:
+```
+library(httr);
+url<-"http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en"
+html2 = GET(url)
+content2 = content(html2,as="text")
+parsedHtml = htmlParse(content2,asText=TRUE)
+xpathSApply(parsedHtml,"//title",xmlValue)
+```
+Sites authentification:
+```
+pg2 = GET("http://httpbin.org/basic-auth/user/passwd", authenticate("user","passwd"))
+names(pg2)
+```
+Utiliser des handles:
+```
+google = handle("http://google.com")
+pg1 = GET(handle=google,path="/")
+pg2 = GET(handle=google,path="search")
+```
+
+### Connection à une API (oauth+httr)
+Accéder à Twitter:
+```
+myapp = oauth_app("twitter", key="...", secret="...")
+sig = sign_oauth1.0(myapp,token="...", token_secret="...")
+homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json",sig)
+```
+Conversion en JSON de l'objet:
+```
+json1 = content(homeTL)
+json2 = jsonlite:fromJSON(toJSON(json1))
+json2
+```
+
+### Autres sources
+* Depuis des fichiers : file, url, gzfile, bzfile...
+* Depuis des softs : read.arff (Weka), read.dta (Stat), read.mtp (Minitab), read.octave, read.spss, read.xport (SAS)
+* Depuis des bases: RPostgreSQL, RODBC, RMongo...
+* Depuis des images : jpeg, readbitmap, png...
+* Données géographiques : rdgal, rgeos, raster
+* ...
