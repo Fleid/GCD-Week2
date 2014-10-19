@@ -31,23 +31,31 @@ dbListFields(myDB_hg19,"affyU133Plus2")
 ```
 
 ---
-
+Exécuter une query:
+```
 dbGetQuery(myDB_hg19,"select count(*) from affyU133Plus2")
-
-myData <- **dbReadTable**(myDB_hg19,"affyU133Plus2")
-
-*Préférer dbGetQuery ou dbReadTable à dbSendQuery, qui ne fetch pas tout le dataset en une passe*
-
-myQuery <- **dbSendQuery**(myDB_hg19,"select * from affyU133Plus2 where misMatches between 1 and 3")
-
+```
+Importer une table complète:
+```
+myData <- dbReadTable(myDB_hg19,"affyU133Plus2")
+```
+Exécuter une query (option2 - *mais préférer dbGetQuery ou dbReadTable à dbSendQuery, qui ne fetch pas tout le dataset en une passe*)
+```
+myQuery <- dbSendQuery(myDB_hg19,"select * from affyU133Plus2 where misMatches between 1 and 3")
+```
+Aller chercher le résultat:
+```
 **fetch**(myQuery)
-
 **fetch**(myQuery,n=10) ##TOP 10
----------
-*Cloture des connexions*
+```
 
+---
+Cloture des connexions:
+```
 dbDisconnect(myDBconnect)
-
-dbClearResult(dbListResults(myDB_hg19)[[1]]) ##parce qu'on a dbSendQuery
-
+```
+Si on s'est servi d'un dbSendQuery + Fetch:
+```
+dbClearResult(dbListResults(myDB_hg19)[[1]]) 
 dbDisconnect(myDB_hg19)
+```
