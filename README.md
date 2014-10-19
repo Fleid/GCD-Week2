@@ -7,16 +7,26 @@
 
 
 ### Connection à un serveur MySQL
-myDBconnect <- **dbConnect**(MySQL(), user ="genome", host="genome-mysql.cse.ucsc.edu")
 
-myResult <- **dbGetQuery(myDBconnect,"show databases;")**
---------
-myDB_hg19 <- dbConnect(MySQL(), user ="genome", **db="hg19"**, host="genome-mysql.cse.ucsc.edu")
+```myDBconnect <- **dbConnect**(MySQL(), user ="genome", host="genome-mysql.cse.ucsc.edu")
+```
 
-allTables <- **dbListTables(myDB_hg19)**
+```myResult <- **dbGetQuery(myDBconnect,"show databases;")**
+```
 
-**dbListFields**(myDB_hg19,"affyU133Plus2")
----------
+---
+
+```myDB_hg19 <- dbConnect(MySQL(), user ="genome", **db="hg19"**, host="genome-mysql.cse.ucsc.edu")
+```
+
+```allTables <- **dbListTables(myDB_hg19)**
+```
+
+```**dbListFields**(myDB_hg19,"affyU133Plus2")
+```
+
+---
+
 dbGetQuery(myDB_hg19,"select count(*) from affyU133Plus2")
 
 myData <- **dbReadTable**(myDB_hg19,"affyU133Plus2")
